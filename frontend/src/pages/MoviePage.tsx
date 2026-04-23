@@ -6,11 +6,7 @@ import { StarRating } from "../components/movies/StarRating";
 import { useRatings } from "../context/RatingsContext";
 import { usePosterUrl } from "../hooks/usePosterUrl";
 
-interface Props {
-  userId: string;
-}
-
-export function MoviePage({ userId }: Props) {
+export function MoviePage(_props: { userId: string }) {
   const { id } = useParams<{ id: string }>();
   const movieId = parseInt(id ?? "0", 10);
 

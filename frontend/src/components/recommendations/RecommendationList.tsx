@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import type { RecommendationItem } from "../../api/client";
 import { MovieCard } from "../movies/MovieCard";
 

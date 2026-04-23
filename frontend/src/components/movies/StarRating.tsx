@@ -6,7 +6,6 @@ interface Props {
   disabled?: boolean;
 }
 
-const STEPS = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
 
 export function StarRating({ value, onChange, disabled }: Props) {
   const [hovered, setHovered] = useState<number | null>(null);
