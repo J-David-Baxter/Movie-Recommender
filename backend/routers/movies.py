@@ -60,6 +60,11 @@ def get_movie(movie_id: int):
         raise HTTPException(status_code=404, detail="Movie not found")
 
     row = df.loc[movie_id]
+    tmdb_raw = row.get("tmdb_id") if hasattr(row, "get") else getattr(row, "tmdb_id", None)
+    try:
+        tmdb_id = int(tmdb_raw) if tmdb_raw is not None and str(tmdb_raw) not in ("nan", "<NA>") else None
+    except (ValueError, TypeError):
+        tmdb_id = None
     tags = [t for t in row["tags_str"].split() if t] if row["tags_str"] else []
     # De-duplicate while preserving order
     seen = set()
@@ -82,6 +87,7 @@ def get_movie(movie_id: int):
         genres=row["genres_list"] if isinstance(row["genres_list"], list) else [],
         avg_rating=round(float(row["avg_rating"]), 2) if row["avg_rating"] is not None and str(row["avg_rating"]) != "nan" else None,
         num_ratings=int(row["num_ratings"]),
+        tmdb_id=tmdb_id,
         tags=unique_tags[:20],
         similar_movies=similar,
     )
